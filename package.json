@@ -1,0 +1,46 @@
+{
+  "name": "vuepress-plugin-npm2yarn",
+  "version": "0.1.0",
+  "description": "VuePress plugin - npm2yarn",
+  "keywords": [
+    "vuepress-plugin",
+    "vuepress",
+    "plugin",
+    "npm2yarn"
+  ],
+  "homepage": "https://github.com/berber1016/vuepress-plugin-npm2yarn",
+  "bugs": {
+    "url": "https://github.com/berber1016/vuepress-plugin-npm2yarn/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berber1016/vuepress-plugin-npm2yarn.git"
+  },
+  "license": "MIT",
+  "author": "meteorlxy",
+  "main": "lib/node/index.js",
+  "types": "lib/node/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.json",
+    "clean": "rimraf lib *.tsbuildinfo"
+  },
+  "dependencies": {
+    
+    "npm-to-yarn": "^1.0.1"
+    
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "prettier": "2.7.1",
+    "typescript": "4.7.4",
+    "@vuepress/core": "2.0.0-beta.49",
+    "eslint": "8.20.0"
+  }
+}
