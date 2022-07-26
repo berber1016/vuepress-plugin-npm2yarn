@@ -1,35 +1,47 @@
-import { Plugin,PluginObject } from "@vuepress/core"
-import * as npm2yarn from 'npm-to-yarn';
+import { Plugin, PluginObject } from "@vuepress/core";
+import convert from "@armano/npm-to-yarn";
 
-export const npm2yarnPlugin = (): Plugin => {
-    const plugin: PluginObject = {
-      name: '@vuepress/plugin-container',
-      multiple: true,
-    }
-    
-    plugin.extendsMarkdown = md => {
-        const fence = md.renderer.rules.fence;
-md.renderer.rules.fence = (tokens,idx,...args) => {
-    let to:'npm' | 'yarn' = 'npm';
-    const token = tokens[idx];
-    const hasParams = token.info.includes('npm2yarn');
-    const tokenRenderer = fence(tokens,idx,...args);
-    if(token.content.startsWith('npm')) to = 'yarn';
-    if(hasParams){
-      const translate = hasParams ? (npm2yarn as any)(token.content,to) : '';
-        token.content = translate;
-    const otherTokenRenderer = fence(tokens,idx,...args);
-    const firstGroupTitle = to === 'npm' ? 'YARN' : 'NPM';
-    const nextGroupTitle = to === 'yarn' ? 'YARN' : 'NPM';
-  return `<CodeGroup> <CodeGroupItem title="${firstGroupTitle}" actived>${tokenRenderer} </CodeGroupItem><CodeGroupItem title="${nextGroupTitle}">${otherTokenRenderer} </CodeGroupItem> </CodeGroup>`;
-    } else {
-      return fence(tokens,idx,...args);
-    }
-    
-}
-    }
-  
-    return plugin
+export type ToType = "npm" | "yarn";
+const KEY = "npm2yarn";
+
+const getCodeType = (content: string) => {
+  if (content.trim().includes("npm")) {
+    return "npm";
+  } else {
+    return "yarn";
   }
+};
+export const npm2yarnPlugin = (): Plugin => {
+  const plugin: PluginObject = {
+    name: "@vuepress/plugin-container",
+    multiple: true,
+  };
+  plugin.extendsMarkdown = (md) => {
+    const originFence = md.renderer.rules.fence;
+    md.renderer.rules.fence = (...args) => {
+      const [tokens, idx, ...rest] = args;
+      let to: ToType = "npm";
+
+      const currentToken = tokens[idx];
+      const OFF = currentToken.info.includes(KEY);
+
+      const firstCode = originFence(tokens, idx, ...rest);
+      const firstCodeTitle = getCodeType(currentToken.content).toUpperCase();
+      if (OFF) {
+        if (getCodeType(currentToken.content) === "npm") to = "yarn";
+        const translatContent = convert(currentToken.content, to);
+        currentToken.content = translatContent;
+        const secondCode = originFence(tokens, idx, ...rest);
+        const secondCodeTitle = getCodeType(currentToken.content).toUpperCase();
+
+        return `<CodeGroup><CodeGroupItem title="${firstCodeTitle}" actived>${firstCode} </CodeGroupItem><CodeGroupItem title="${secondCodeTitle}">${secondCode} </CodeGroupItem> </CodeGroup>`;
+      } else {
+        return originFence(tokens, idx, ...rest);
+      }
+    };
+  };
+
+  return plugin;
+};
 
 export default npm2yarnPlugin;
