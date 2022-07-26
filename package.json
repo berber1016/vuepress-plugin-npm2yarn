@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-npm2yarn",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "VuePress plugin-npm2yarn",
   "keywords": [
     "vuepress-plugin",
