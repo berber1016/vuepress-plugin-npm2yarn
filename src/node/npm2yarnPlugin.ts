@@ -13,7 +13,7 @@ const getCodeType = (content: string) => {
 };
 export const npm2yarnPlugin = (): Plugin => {
   const plugin: PluginObject = {
-    name: "@vuepress/plugin-container",
+    name: "vuepress-plugin-npm2yarn",
     multiple: true,
   };
   plugin.extendsMarkdown = (md) => {
