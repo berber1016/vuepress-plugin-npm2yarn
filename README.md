@@ -36,3 +36,27 @@ module.exports = {
 ````
 
 ![use](./asset/image/use.gif)
+
+## development
+
+```js
+
+pnpm install
+
+pnpm run build
+
+```
+
+```js
+// other vuepress project
+//.vuepress/config.js
+const {
+  npm2yarnPlugin,
+} = require("../vuepress-plugin-npm2yarn/lib/node/index");
+
+module.exports = {
+  //...some code
+
+  plugins: [npm2yarnPlugin()],
+};
+```
