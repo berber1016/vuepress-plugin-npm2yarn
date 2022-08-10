@@ -2,17 +2,17 @@
 
 这个插件的作用是当你在写一些文档或者教程时，可以很方便的将 `npm bash` 代码转化为 `yarn bash`，反之亦然。
 
-本插件依赖 vuepress `<codeGroup>` 组件。
+**本插件依赖 vuepress `<codeGroup>` 组件。**
 
-## How to use
+## 如何使用
 
-### Install
+### 安装
 
 ```bash
 npm install vuepress-plugin-npm2yarn
 ```
 
-### use
+### 使用
 
 ```js
 //.vuepress/config.js
@@ -37,7 +37,7 @@ module.exports = {
 
 ![use](./asset/image/use.gif)
 
-## development
+## 开发
 
 ```js
 
@@ -48,11 +48,9 @@ pnpm run build
 ```
 
 ```js
-// other vuepress project
+// vuepress project
 //.vuepress/config.js
-const {
-  npm2yarnPlugin,
-} = require("../vuepress-plugin-npm2yarn/lib/node/index");
+const { npm2yarnPlugin } = require("vuepress-plugin-npm2yarn");
 
 module.exports = {
   //...some code
